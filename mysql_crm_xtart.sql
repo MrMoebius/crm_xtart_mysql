@@ -30,6 +30,7 @@ CREATE TABLE empleados (
   nombre VARCHAR(100) NOT NULL,
   email VARCHAR(150) NOT NULL UNIQUE,
   telefono VARCHAR(20),
+  password VARCHAR(255) NOT NULL,
   id_rol INT NOT NULL,
   fecha_ingreso DATE,
   estado VARCHAR(50) DEFAULT 'activo',
@@ -50,6 +51,7 @@ CREATE TABLE clientes (
   email VARCHAR(150) UNIQUE,
   telefono VARCHAR(20),
   tipo_cliente VARCHAR(50), -- persona o empresa
+  password VARCHAR(255) NOT NULL,
   fecha_alta DATE,
   id_empleado_responsable INT,
   CONSTRAINT fk_cliente_empleado FOREIGN KEY (id_empleado_responsable)
@@ -200,29 +202,29 @@ VALUES
 -- =========================================================
 -- EMPLEADOS
 -- =========================================================
-INSERT INTO empleados (nombre, email, telefono, id_rol, fecha_ingreso, estado)
+INSERT INTO empleados (nombre, email, telefono, password, id_rol, fecha_ingreso, estado)
 VALUES
-  ('Laura Martínez', 'laura.martinez@xtart.es', '600123456', 2, '2021-09-01', 'activo'),
-  ('Carlos Gómez', 'carlos.gomez@xtart.es', '600234567', 2, '2022-01-10', 'activo'),
-  ('María López', 'maria.lopez@xtart.es', '600345678', 3, '2020-06-15', 'activo'),
-  ('Javier Ruiz', 'javier.ruiz@xtart.es', '600456789', 1, '2019-03-20', 'activo'),
-  ('Ana Torres', 'ana.torres@xtart.es', '600567890', 4, '2020-11-10', 'activo');
+  ('Laura Martínez', 'laura.martinez@xtart.es', '600123456', 'com123', 2, '2021-09-01', 'activo'),
+  ('Carlos Gómez', 'carlos.gomez@xtart.es', '600234567', 'com123', 2, '2022-01-10', 'activo'),
+  ('María López', 'maria.lopez@xtart.es', '600345678', 'gestor123', 3, '2020-06-15', 'activo'),
+  ('Javier Ruiz', 'javier.ruiz@xtart.es', '600456789', 'admin123', 1, '2019-03-20', 'activo'),
+  ('Ana Torres', 'ana.torres@xtart.es', '600567890', 'dir123', 4, '2020-11-10', 'activo');
 
 -- =========================================================
 -- CLIENTES (pagadores y beneficiarios)
 -- =========================================================
-INSERT INTO clientes (nombre, email, telefono, tipo_cliente, fecha_alta, id_empleado_responsable)
+INSERT INTO clientes (nombre, email, telefono, tipo_cliente, password, fecha_alta, id_empleado_responsable)
 VALUES
-  ('Juan Pérez', 'juan.perez@gmail.com', '611111111', 'persona', '2023-09-01', 1),
-  ('María Sánchez', 'maria.sanchez@gmail.com', '622222222', 'persona', '2023-10-10', 2),
-  ('Pedro Romero', 'pedro.romero@gmail.com', '633333333', 'persona', '2023-08-20', 1),
-  ('Lucía Fernández', 'lucia.fernandez@gmail.com', '644444444', 'persona', '2023-07-05', 2),
-  ('Academia TechPro', 'contacto@techpro.com', '955000111', 'empresa', '2023-04-01', 1),
-  ('Colegio Innovar', 'info@innovar.edu', '955000222', 'empresa', '2023-05-01', 2),
-  ('José Ramírez', 'jose.ramirez@gmail.com', '655555555', 'persona', '2024-01-12', 2),
-  ('Claudia Núñez', 'claudia.nunez@gmail.com', '666666666', 'persona', '2024-02-05', 1),
-  ('Esteban Mora', 'esteban.mora@gmail.com', '677777777', 'persona', '2024-03-10', 2),
-  ('Empresa FormarPlus', 'info@formarplus.com', '688888888', 'empresa', '2023-09-20', 1);
+  ('Juan Pérez', 'juan.perez@gmail.com', '611111111', 'persona', 'cliente123', '2023-09-01', 1),
+  ('María Sánchez', 'maria.sanchez@gmail.com', '622222222', 'persona', 'cliente123', '2023-10-10', 2),
+  ('Pedro Romero', 'pedro.romero@gmail.com', '633333333', 'persona', 'cliente123', '2023-08-20', 1),
+  ('Lucía Fernández', 'lucia.fernandez@gmail.com', '644444444', 'persona', 'cliente123', '2023-07-05', 2),
+  ('Academia TechPro', 'contacto@techpro.com', '955000111', 'empresa', 'cliente123', '2023-04-01', 1),
+  ('Colegio Innovar', 'info@innovar.edu', '955000222', 'empresa', 'cliente123', '2023-05-01', 2),
+  ('José Ramírez', 'jose.ramirez@gmail.com', '655555555', 'persona', 'cliente123', '2024-01-12', 2),
+  ('Claudia Núñez', 'claudia.nunez@gmail.com', '666666666', 'persona', 'cliente123', '2024-02-05', 1),
+  ('Esteban Mora', 'esteban.mora@gmail.com', '677777777', 'persona', 'cliente123', '2024-03-10', 2),
+  ('Empresa FormarPlus', 'info@formarplus.com', '688888888', 'empresa', 'cliente123', '2023-09-20', 1);
 
 -- =========================================================
 -- PRODUCTOS (cursos y formaciones)
