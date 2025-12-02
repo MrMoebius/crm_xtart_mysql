@@ -85,9 +85,9 @@ CREATE TABLE presupuestos (
   id_empleado INT NOT NULL,
   id_cliente_pagador INT NOT NULL,
   id_cliente_beneficiario INT NOT NULL,
-  id_producto INT NOT NULL,
+  -- id_producto INT NOT NULL,
   presupuesto DECIMAL(10,2) NOT NULL,
-  estado VARCHAR(50) DEFAULT 'nuevo', -- nuevo, en_proceso, aceptado, cerrado, rechazado
+  estado VARCHAR(50) DEFAULT 'nuevo', 
   fecha_apertura DATE,
   fecha_cierre DATE,
   CONSTRAINT fk_presupuesto_empleado FOREIGN KEY (id_empleado)
@@ -110,6 +110,33 @@ CREATE TABLE presupuestos (
 
 CREATE INDEX idx_presupuestos_estado ON presupuestos(estado);
 CREATE INDEX idx_presupuestos_fecha_apertura ON presupuestos(fecha_apertura);
+
+-- =========================================================
+--  5B. Tabla: presupuestos_productos
+-- =========================================================
+CREATE TABLE presupuesto_productos (
+  id_presupuesto_producto INT AUTO_INCREMENT PRIMARY KEY,
+  id_presupuesto INT NOT NULL,
+  id_producto INT NOT NULL,
+  id_cliente_beneficiario INT NOT NULL,
+  cantidad INT DEFAULT 1,
+  precio_unitario DECIMAL(10,2),
+  subtotal DECIMAL(10,2),
+
+  CONSTRAINT fk_presupuesto_producto_presupuesto FOREIGN KEY (id_presupuesto)
+    REFERENCES presupuestos(id_presupuesto)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+
+  CONSTRAINT fk_presupuesto_producto_producto FOREIGN KEY (id_producto)
+    REFERENCES productos(id_producto)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT,
+
+  CONSTRAINT fk_presupuesto_producto_beneficiario FOREIGN KEY (id_cliente_beneficiario)
+    REFERENCES clientes(id_cliente)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT);
 
 -- =========================================================
 --  6. Tabla: facturas
